@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +45,7 @@ public class MainActivity extends Activity {
                 boolean messageHasValue = !message.getText().toString().equals("");
                 boolean numberHasValue = !phoneNumber.getText().toString().equals("");
 
-                registerReceiver(alarmReceiver, new IntentFilter("SoundDaAlarm"));
+                registerReceiver(alarmReceiver, new IntentFilter("toast"));
                 AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
                 if (started) {
@@ -66,7 +64,7 @@ public class MainActivity extends Activity {
                     Intent i = new Intent();
                     i.putExtra("phn", phoneNumber.getText().toString());
                     i.putExtra("msg", message.getText().toString());
-//                    i.setAction("SoundDaAlarm");
+                    i.setAction("toast");
 
                     alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, i, 0);
                     am.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + milliSeconds, milliSeconds, alarmIntent);
@@ -77,20 +75,3 @@ public class MainActivity extends Activity {
 
 }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        int id = item.getItemId();
-//
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
